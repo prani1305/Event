@@ -1809,3 +1809,333 @@ h3 .theme-icon {
     text-decoration: none;
     cursor: pointer;
 }
+
+/* ===== MOBILE FIXES ===== */
+/* Targeted overrides for screens up to 768px wide.
+   Addresses: overflow, heading sizes, grid stacking,
+   missing padding, founder photo layout, textarea resize. */
+
+/* ── Textarea resize polish ── */
+textarea {
+    resize: vertical;
+}
+
+@media (max-width: 768px) {
+
+    /* ── 1. Global overflow guard ── */
+    html,
+    body {
+        overflow-x: hidden;
+        max-width: 100%;
+    }
+
+    *,
+    *::before,
+    *::after {
+        max-width: 100%;
+    }
+
+    /* ── 2. Headings: scale down & wrap ── */
+    h1,
+    h2,
+    h3 {
+        font-size: clamp(1.3rem, 6vw, 2rem);
+        word-break: break-word;
+        overflow-wrap: break-word;
+        letter-spacing: -0.5px;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+
+    /* Page hero h1 is allowed to be a bit larger */
+    .page-hero h1 {
+        font-size: clamp(1.5rem, 7vw, 2.4rem);
+    }
+
+    /* Final CTA h2 */
+    .final-cta h2 {
+        font-size: clamp(1.4rem, 6vw, 2rem);
+    }
+
+    /* Service detail content h2 */
+    .service-detail-content h2 {
+        font-size: clamp(1.3rem, 5.5vw, 1.9rem);
+    }
+
+    /* ── 3. Ensure minimum padding on all sections ── */
+    section {
+        padding: 60px 0;
+        overflow-x: hidden;
+    }
+
+    .container {
+        padding: 0 1.5rem;
+        max-width: 100%;
+    }
+
+    /* ── 4. Founder photo grid (about.html section 2) ──
+       The inline style uses display:grid with 2 columns.
+       We override with a utility class applied by wrapping
+       the parent. Since it's an inline style we target it
+       via the known parent selector on about.html. */
+    /* Target: div inside the dark founder section */
+    section[style*="obsidian-black"] > .container > div[style*="grid-template-columns"],
+    section[style*="background: var(--obsidian-black)"] > .container > div[style*="grid"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    /* Also catch about.html journey/philosophy 2-col grid */
+    section[style*="soft-pearl"] > .container > div[style*="grid-template-columns: 1fr 1fr"],
+    section[style*="padding: 100px 0; background: var(--soft-pearl)"] > .container > div[style*="grid"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    /* about-grid used in index.html founder preview */
+    .about-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    /* ── 5. Founder image: full width, centred ── */
+    .about-grid .responsive-img-wrapper,
+    section[style*="obsidian-black"] .responsive-img-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 20px !important;
+    }
+
+    .about-grid .responsive-img-wrapper img,
+    section[style*="obsidian-black"] .responsive-img-wrapper img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        margin: 0 auto !important;
+    }
+
+    /* ── 6. Service detail grid already collapses via 900px rule,
+       but reinforce for 768px too ── */
+    .service-detail-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    /* ── 7. Step-row: collapse to single column ── */
+    .step-row {
+        grid-template-columns: 50px 1fr !important;
+    }
+
+    /* ── 8. Trust bar wraps already via flex-wrap, just reduce gap ── */
+    .trust-grid {
+        gap: 20px;
+        font-size: 0.8rem;
+    }
+
+    /* ── 9. Banner padding reduction ── */
+    .banner3d-a-front,
+    .banner3d-b-front,
+    .banner3d-c-front,
+    .banner3d-d-front {
+        padding: 32px 1.5rem;
+    }
+
+    /* ── 10. Final CTA padding ── */
+    .final-cta {
+        padding: 70px 1.5rem;
+    }
+
+    .final-cta p {
+        font-size: 1rem;
+    }
+
+    /* ── 11. Buttons: prevent overflow ── */
+    .btn {
+        max-width: 100%;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+        max-width: 340px;
+        text-align: center;
+    }
+
+    /* ── 12. Nav: tighten on very small screens ── */
+    nav {
+        padding: 16px 1.5rem;
+    }
+
+    /* ── 13. Page hero padding ── */
+    .page-hero {
+        padding: 120px 1.5rem 70px;
+    }
+
+    /* ── 14. Contact grid (contact.html) ── */
+    .contact-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 40px !important;
+    }
+
+    /* ── 15. Footer grid ── */
+    .footer-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* ── 16. Inline grid used in index.html "why us" section ── */
+    div[style*="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+    }
+
+    /* ── 17. Responsive images: never overflow ── */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .responsive-img-wrapper {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* ── 18. Testimonials grid ── */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ── 19. Event types grid ── */
+    .event-types-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ── 20. Coverage grid ── */
+    .coverage-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ── 21. Contact form textarea ── */
+    .contact-form textarea {
+        resize: vertical;
+    }
+
+    /* ── 22. Contact left padding fix ── */
+    .contact-left {
+        padding-right: 0;
+    }
+
+    /* ── 23. Contact form ── */
+    .contact-form {
+        padding: 28px 1.5rem;
+    }
+
+    /* ── 24. Services.html inline 2-col grid for journey/philosophy ──
+       about.html section 3 has display:grid; grid-template-columns:1fr 1fr */
+    div[style*="grid-template-columns: 1fr 1fr"],
+    div[style*="grid-template-columns:1fr 1fr"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    /* ── 25. about.html founder section 2-col grid ── */
+    div[style*="grid-template-columns: 1fr 1.2fr"],
+    div[style*="grid-template-columns:1fr 1.2fr"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+
+    /* ── 26. Founder quote box: full width ── */
+    div[style*="display: inline-block"] {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* ── 27. Banner wrap ── */
+    .banner-wrap {
+        width: 100%;
+        padding: 30px 0;
+    }
+
+    .banner3d-c,
+    .banner3d-d {
+        width: 100% !important;
+    }
+
+    .b-image,
+    .b-image-right {
+        width: 100% !important;
+        height: 200px;
+    }
+
+    /* ── 28. Clamp headings with inline font-size that may be too large ── */
+    h2[style*="font-size: 2.5rem"],
+    h2[style*="font-size:2.5rem"] {
+        font-size: clamp(1.3rem, 5.5vw, 1.8rem) !important;
+    }
+
+    h2[style*="font-size: 2rem"],
+    h2[style*="font-size:2rem"] {
+        font-size: clamp(1.2rem, 5vw, 1.6rem) !important;
+    }
+
+    /* ── 29. Gallery grid ── */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid img {
+        height: 220px;
+    }
+}
+
+/* ── Extra small: 480px ── */
+@media (max-width: 480px) {
+
+    h1,
+    h2,
+    h3 {
+        font-size: clamp(1.1rem, 5.5vw, 1.5rem);
+        letter-spacing: 0;
+    }
+
+    .page-hero h1 {
+        font-size: clamp(1.2rem, 6vw, 1.8rem);
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    section {
+        padding: 50px 0;
+    }
+
+    .page-hero {
+        padding: 100px 1rem 60px;
+    }
+
+    .final-cta {
+        padding: 60px 1rem;
+    }
+
+    .service-card {
+        padding: 28px 18px;
+    }
+}
