@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Explore JEW services: Magic shows, DJ & Pro Sound, Event Lighting, Live Entertainment, Activity Counters, and more in Vizag.">
+    <title>Our Services | Best Event Services in Vizag | JEW</title>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@300;400;600&family=JetBrains+Mono:wght@300&display=swap"
+        rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ── Catalogue Modal ── */
+        #catalogue-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(22, 22, 22, 0.97);
+            z-index: 1000;
+            overflow-y: auto;
+            display: none;
+            padding: 40px 20px 60px;
+        }
+
+        #catalogue-modal.open {
+            display: block;
+        }
+
+        .cat-close-btn {
+            position: fixed;
+            top: 18px;
+            right: 28px;
+            background: rgba(242, 241, 237, 0.1);
+            border: 1px solid rgba(242, 241, 237, 0.2);
+            color: var(--pearl);
+            font-size: 1.6rem;
+            line-height: 1;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            transition: background 0.2s;
+        }
+
+        .cat-close-btn:hover {
+            background: var(--crimson-depth);
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .cat-grid img {
+            width: 100%;
+            border-radius: 14px;
+            cursor: zoom-in;
+            object-fit: cover;
+            aspect-ratio: 4 / 3;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cat-grid img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        @media (max-width: 600px) {
+            .cat-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── Lightbox override (must be above catalogue modal) ── */
+        #lightbox {
+            z-index: 2000 !important;
+        }
+
+        /* ── Hero catalogue button ── */
+        .hero-btn-row {
+            margin-top: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+
+        #open-catalogue {
+            cursor: pointer;
+            background: transparent;
+            border: 1px solid rgba(242, 241, 237, 0.4);
+            color: var(--pearl);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 1.5px;
+            padding: 14px 28px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            transition: border-color 0.2s, background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #open-catalogue:hover {
+            border-color: var(--warm-sand);
+            background: rgba(179, 143, 111, 0.1);
+        }
+
+        /* ── Order Section ── */
+        #order-section {
+            padding: 100px 0;
+            background: var(--obsidian-black);
+            position: relative;
+        }
+
+        .order-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 22px;
+            margin-bottom: 64px;
+        }
+
+        .order-card {
+            background: rgba(242, 241, 237, 0.04);
+            border: 1px solid rgba(242, 241, 237, 0.09);
+            border-radius: 16px;
+            padding: 26px;
+            transition: border-color 0.3s;
+        }
+
+        .order-card:hover {
+            border-color: rgba(179, 143, 111, 0.3);
+        }
+
+        .order-card-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(242, 241, 237, 0.08);
+        }
+
+        .order-card-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--crimson-depth);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .order-card-title {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--pearl);
+            font-size: 0.82rem;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+
+        .order-card-sub {
+            color: rgba(242, 241, 237, 0.35);
+            font-size: 0.72rem;
+            margin-top: 2px;
+        }
+
+        .order-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            padding: 10px 12px;
+            border-radius: 9px;
+            border: 1px solid rgba(242, 241, 237, 0.09);
+            background: rgba(242, 241, 237, 0.03);
+            transition: all 0.2s ease;
+            color: rgba(242, 241, 237, 0.6);
+            font-size: 0.88rem;
+            line-height: 1.4;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .order-item:hover {
+            border-color: rgba(179, 143, 111, 0.35);
+            background: rgba(179, 143, 111, 0.07);
+            color: var(--pearl);
+        }
+
+        .order-item input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            min-width: 17px;
+            margin-top: 2px;
+            accent-color: var(--crimson-depth);
+            cursor: pointer;
+        }
+
+        .order-item:has(input:checked) {
+            border-color: var(--crimson-depth);
+            background: rgba(113, 0, 20, 0.18);
+            color: var(--pearl);
+        }
+
+        /* ── Order Form ── */
+        .order-form-box {
+            background: rgba(179, 143, 111, 0.06);
+            border: 1px solid rgba(179, 143, 111, 0.18);
+            border-radius: 20px;
+            padding: 52px 48px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .order-input {
+            width: 100%;
+            padding: 15px 18px;
+            background: rgba(242, 241, 237, 0.06);
+            border: 1px solid rgba(242, 241, 237, 0.14);
+            border-radius: 10px;
+            color: var(--pearl);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .order-input:focus {
+            border-color: var(--warm-sand);
+            background: rgba(242, 241, 237, 0.09);
+        }
+
+        .order-input::placeholder {
+            color: rgba(242, 241, 237, 0.3);
+        }
+
+        input[type="date"].order-input::-webkit-calendar-picker-indicator {
+            filter: invert(0.5) sepia(1) saturate(0.5);
+            cursor: pointer;
+        }
+
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .wa-send-btn {
+            width: 100%;
+            padding: 20px;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+            margin-top: 28px;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25);
+        }
+
+        .wa-send-btn:hover {
+            background: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.35);
+        }
+
+        .wa-send-btn:active {
+            transform: translateY(0);
+        }
+
+        .selected-count-badge {
+            display: none;
+            background: var(--crimson-depth);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .selected-count-badge.visible {
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .order-services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .order-form-box {
+                padding: 32px 20px;
+            }
+
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-btn-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav id="main-nav">
+        <div>
+            <div class="mono" style="font-size: 1rem; color: var(--crimson-depth) !important; font-weight: bold;">JEW –
+                Jayanthi Event World</div>
+            <div class="mono" style="font-size: 0.6rem; color: var(--obsidian-mid) !important; letter-spacing: 1px;">
+                Vizag's Most Celebrated Event Company</div>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html" style="color: var(--crimson-depth) !important; font-weight: bold;">Services</a>
+            <a href="events.html">Events</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="https://wa.me/919704571912" class="btn btn-primary"
+                style="padding: 10px 20px; font-size: 0.65rem;">Book on WhatsApp</a>
+        </div>
+
+        <div class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <p class="mono" style="color: var(--warm-sand); margin-bottom: 20px;">Everything you need under one roof</p>
+            <h1>Our Services <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="theme-icon">
+                    <path d="M19 20 10 4" />
+                    <path d="m5 20 9-16" />
+                    <path d="M3 20h18" />
+                    <path d="m12 15-3 5" />
+                    <path d="m12 15 3 5" />
+                </svg></h1>
+            <p>From captivating magic to pulse-pounding sound, we provide everything needed for a spectacular event.</p>
+            <div class="hero-btn-row">
+                <a href="#order-section" class="btn btn-primary">Build Your Event →</a>
+                <button type="button" id="open-catalogue" aria-label="Open Catalogue">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                    </svg>
+                    View Complete Catalogue
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         CATALOGUE MODAL
+    ══════════════════════════════════════ -->
+    <div id="catalogue-modal" role="dialog" aria-modal="true" aria-label="Our Catalogue">
+        <button type="button" class="cat-close-btn" id="close-catalogue" aria-label="Close catalogue">&#x2715;</button>
+        <div style="max-width: 1000px; margin: 0 auto; padding-top: 10px;">
+            <div style="text-align: center; margin-bottom: 48px;">
+                <p class="mono"
+                    style="color: var(--warm-sand); font-size: 0.72rem; letter-spacing: 2.5px; margin-bottom: 14px;">A
+                    GLIMPSE OF OUR WORK</p>
+                <h2 style="color: var(--pearl); font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -2px;">Our
+                    Catalogue</h2>
+                <p style="color: rgba(242,241,237,0.45); margin-top: 14px; font-size: 0.9rem;">Click any image to view
+                    full size</p>
+            </div>
+            <div class="cat-grid">
+                <img src="Images/Catalogue/1.jpeg" class="zoom-img" alt="Catalogue Image 1">
+                <img src="Images/Catalogue/2.jpeg" class="zoom-img" alt="Catalogue Image 2">
+                <img src="Images/Catalogue/3.jpeg" class="zoom-img" alt="Catalogue Image 3">
+                <img src="Images/Catalogue/4.jpeg" class="zoom-img" alt="Catalogue Image 4">
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICE 1 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <p class="mono">Professional Illusion</p>
+                    <h2>Magic Shows <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                            <path
+                                d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z" />
+                            <path d="m14 7 3 3" />
+                        </svg></h2>
+                    <p>When Magician Vasanth takes the stage, the audience stops, stares, and gasps. With 15+ years of
+                        performance experience, our magic shows are designed to captivate every age group — from excited
+                        children to curious corporate audiences.</p>
+                    <p>Whether it's an intimate birthday party or a grand stage event, we tailor every performance to
+                        your crowd.</p>
+                    <ul class="service-detail-list">
+                        <li>Birthday Party Magic Show</li>
+                        <li>Corporate Magic Show</li>
+                        <li>School & College Magic Show</li>
+                        <li>Family Entertainment Show</li>
+                        <li>Grand Illusion Stage Show</li>
+                        <li>Interactive Kids Magic Show</li>
+                    </ul>
+                    <a href="#order-section" class="btn btn-primary">Add to My Event →</a>
+                </div>
+                <div class="responsive-img-wrapper" style="box-shadow: 0 15px 35px rgba(113,0,20,0.2);">
+                    <img src="Images/Gemini_Generated_Image_5d6ihw5d6ihw5d6i.png" alt="Magic Show Performance">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 2 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <p class="mono">Audio Excellence</p>
+                    <h2>DJ &amp; Sound <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg></h2>
+                    <p>Great music is the heartbeat of any event. Our DJs know how to read the room — from romantic
+                        wedding melodies to high-energy dance floors that keep guests going until midnight.</p>
+                    <p>Paired with JBL professional sound systems, we deliver crystal-clear audio for events of all
+                        sizes.</p>
+                    <ul class="service-detail-list">
+                        <li>DJ for Weddings</li>
+                        <li>DJ for Birthday Parties</li>
+                        <li>Corporate Event DJ</li>
+                        <li>JBL Sound System Setup</li>
+                        <li>Sound System on Rent</li>
+                        <li>Background Music Curation</li>
+                    </ul>
+                    <a href="#order-section" class="btn btn-primary">Add to My Event →</a>
+                </div>
+                <div class="responsive-img-wrapper" style="box-shadow: 0 15px 35px rgba(113,0,20,0.2);">
+                    <img src="Images/DJ.png" alt="DJ and Sound Setup">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 3 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <p class="mono">Visual Drama</p>
+                    <h2>Lights &amp; Special Effects <svg xmlns="http://www.w3.org/2000/svg" width="1.2em"
+                            height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                            <path
+                                d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+                            <path d="M9 18h6" />
+                            <path d="M10 22h4" />
+                        </svg></h2>
+                    <p>The right lighting turns any space into a stage. From the moment guests walk in to the final
+                        dance, our lighting and special effects create an atmosphere that feels cinematic and magical.
+                    </p>
+                    <ul class="service-detail-list">
+                        <li>Cold Fire Works</li>
+                        <li>CO₂ Paper Blast</li>
+                        <li>Fog Entry Effects</li>
+                        <li>LED Wall & Stage Lighting</li>
+                        <li>Thematic Colour Lighting</li>
+                        <li>Fairy Light Setups</li>
+                    </ul>
+                    <a href="#order-section" class="btn btn-primary">Add to My Event →</a>
+                </div>
+                <div class="responsive-img-wrapper" style="box-shadow: 0 15px 35px rgba(113,0,20,0.2);">
+                    <img src="Images/Corporate Event.png" alt="Event Lighting and SFX">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 4 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <p class="mono">Performances</p>
+                    <h2>Live Entertainment <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                            <line x1="9" y1="9" x2="9.01" y2="9" />
+                            <line x1="15" y1="9" x2="15.01" y2="9" />
+                        </svg></h2>
+                    <p>Beyond magic, JEW offers a full spectrum of live entertainment that adds depth, colour, and fun
+                        to any celebration.</p>
+                    <p>Great for: Kids' birthday parties, family events, school/college fests, community celebrations.
+                    </p>
+                    <ul class="service-detail-list">
+                        <li>Puppet Show</li>
+                        <li>Circus Juggling Show</li>
+                        <li>Mimicry & Comedy</li>
+                        <li>Male & Female Live Singers</li>
+                        <li>Professional Anchors / Emcees</li>
+                    </ul>
+                    <a href="#order-section" class="btn btn-primary">Add to My Event →</a>
+                </div>
+                <div class="responsive-img-wrapper" style="box-shadow: 0 15px 35px rgba(113,0,20,0.2);">
+                    <img src="Images/Live Entertainment.png" alt="Event Lighting and SFX">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 5 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <p class="mono">First Impressions</p>
+                    <h2>Special Entries <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                            <path
+                                d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a2 2 0 0 0-1.6-.8H8.3a2 2 0 0 0-1.6.8L4 11l-5.16.86a1 1 0 0 0-.84.99V16h3m10 0a2 2 0 1 1-4 0m-10 0a2 2 0 1 1-4 0" />
+                        </svg></h2>
+                    <p>First impressions matter. Our special entry services are designed to make the star of the event —
+                        whether the bride, the birthday child, or the guest of honour — arrive in unforgettable style.
+                    </p>
+                    <ul class="service-detail-list">
+                        <li>Car Entry (Decorated Car or Jeep)</li>
+                        <li>Cold Fire Entry</li>
+                        <li>Dry Ice Entry (Fog-on-floor effect)</li>
+                        <li>Combined Entry with Special Effects</li>
+                    </ul>
+                    <a href="#order-section" class="btn btn-primary">Add to My Event →</a>
+                </div>
+                <div class="responsive-img-wrapper" style="box-shadow: 0 15px 35px rgba(113,0,20,0.2);">
+                    <img src="Images/Special Entry.png" alt="Grand Wedding Entry">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 6 & 7 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail-grid">
+                <div class="service-detail-content">
+                    <p class="mono">Keep Guests Engaged</p>
+                    <h2>Activity Counters <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                            <circle cx="13.5" cy="6.5" r=".5" />
+                            <circle cx="17.5" cy="10.5" r=".5" />
+                            <circle cx="8.5" cy="7.5" r=".5" />
+                            <circle cx="6.5" cy="12.5" r=".5" />
+                            <path
+                                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                        </svg></h2>
+                    <p>Activity stations add an interactive layer to your event, keeping guests — especially kids and
+                        young adults — entertained between the main programme segments.</p>
+                    <ul class="service-detail-list">
+                        <li>Temporary Tattoos</li>
+                        <li>Mehendi (Henna Art)</li>
+                        <li>Nail Art</li>
+                        <li>Face Painting (on request)</li>
+                    </ul>
+                    <a href="#order-section" class="btn btn-primary">Add to My Event →</a>
+                </div>
+                <div class="service-detail-content"
+                    style="padding:40px; background:var(--soft-pearl); border-radius:12px;">
+                    <p class="mono">Delightful Treats</p>
+                    <h2>Food Stations <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                            <polyline points="20 12 20 22 4 22 4 12" />
+                            <rect x="2" y="7" width="20" height="5" />
+                            <line x1="12" y1="22" x2="12" y2="7" />
+                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                        </svg></h2>
+                    <p>Food stations do more than feed guests — they become conversation starters and photo moments.
+                        Bring charm and sweetness to your celebration.</p>
+                    <ul class="service-detail-list">
+                        <li>Chocolate Fountain</li>
+                        <li>Popcorn Machine</li>
+                        <li>Sugar Candy Stall</li>
+                        <li>Sweet Corn Counter</li>
+                        <li>Smoke Biscuits Station</li>
+                    </ul>
+                    <a href="#order-section" class="btn btn-outline">Add to My Event →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════
+         ORDER SECTION
+    ══════════════════════════════════════ -->
+    <section id="order-section">
+        <div class="container">
+
+            <!-- Section Header -->
+            <div style="text-align: center; margin-bottom: 60px;">
+                <p class="mono"
+                    style="color: var(--warm-sand); font-size: 0.72rem; letter-spacing: 2.5px; margin-bottom: 16px;">
+                    STEP 1 — PICK YOUR SERVICES</p>
+                <h2 style="color: var(--pearl); font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -2px; margin-bottom: 20px;">
+                    Build Your Event</h2>
+                <p style="color: rgba(242,241,237,0.55); max-width: 560px; margin: 0 auto; line-height: 1.85; font-size: 0.95rem;">
+                    Tick what you need from the list below, fill in your event details, and send your personalised order
+                    directly on WhatsApp — we'll get back to you with a quote.
+                </p>
+            </div>
+
+            <!-- Live selection counter -->
+            <div style="text-align: center; margin-bottom: 32px;">
+                <span id="selection-badge" class="selected-count-badge">0 services selected</span>
+            </div>
+
+            <!-- ── Service Cards with Checkboxes ── -->
+            <div class="order-services-grid">
+
+                <!-- Magic Shows -->
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div class="order-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z" />
+                                <path d="m14 7 3 3" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="order-card-title">Magic Shows</div>
+                            <div class="order-card-sub">by Magician Vasanth</div>
+                        </div>
+                    </div>
+                    <div class="order-items-list">
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Magic Shows"
+                                value="Birthday Party Magic Show"><span>Birthday Party Magic Show</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Magic Shows"
+                                value="Corporate Magic Show"><span>Corporate Magic Show</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Magic Shows"
+                                value="School & College Magic Show"><span>School & College Magic Show</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Magic Shows"
+                                value="Family Entertainment Show"><span>Family Entertainment Show</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Magic Shows"
+                                value="Grand Illusion Stage Show"><span>Grand Illusion Stage Show</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Magic Shows"
+                                value="Interactive Kids Magic Show"><span>Interactive Kids Magic Show</span></label>
+                    </div>
+                </div>
+
+                <!-- DJ & Sound -->
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div class="order-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 18V5l12-2v13" />
+                                <circle cx="6" cy="18" r="3" />
+                                <circle cx="18" cy="16" r="3" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="order-card-title">DJ & Sound</div>
+                            <div class="order-card-sub">JBL Pro Audio</div>
+                        </div>
+                    </div>
+                    <div class="order-items-list">
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="DJ & Sound"
+                                value="DJ for Weddings"><span>DJ for Weddings</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="DJ & Sound"
+                                value="DJ for Birthday Parties"><span>DJ for Birthday Parties</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="DJ & Sound"
+                                value="Corporate Event DJ"><span>Corporate Event DJ</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="DJ & Sound"
+                                value="JBL Sound System Setup"><span>JBL Sound System Setup</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="DJ & Sound"
+                                value="Sound System on Rent"><span>Sound System on Rent</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="DJ & Sound"
+                                value="Background Music Curation"><span>Background Music Curation</span></label>
+                    </div>
+                </div>
+
+                <!-- Lights & Special Effects -->
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div class="order-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+                                <path d="M9 18h6" />
+                                <path d="M10 22h4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="order-card-title">Lights & Effects</div>
+                            <div class="order-card-sub">Visual drama for any venue</div>
+                        </div>
+                    </div>
+                    <div class="order-items-list">
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Lights & Special Effects"
+                                value="Cold Fire Works"><span>Cold Fire Works</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Lights & Special Effects"
+                                value="CO₂ Paper Blast"><span>CO₂ Paper Blast</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Lights & Special Effects"
+                                value="Fog Entry Effects"><span>Fog Entry Effects</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Lights & Special Effects"
+                                value="LED Wall & Stage Lighting"><span>LED Wall & Stage Lighting</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Lights & Special Effects"
+                                value="Thematic Colour Lighting"><span>Thematic Colour Lighting</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Lights & Special Effects"
+                                value="Fairy Light Setups"><span>Fairy Light Setups</span></label>
+                    </div>
+                </div>
+
+                <!-- Live Entertainment -->
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div class="order-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                                <line x1="9" y1="9" x2="9.01" y2="9" />
+                                <line x1="15" y1="9" x2="15.01" y2="9" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="order-card-title">Live Entertainment</div>
+                            <div class="order-card-sub">Shows & performances</div>
+                        </div>
+                    </div>
+                    <div class="order-items-list">
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Live Entertainment" value="Puppet Show"><span>Puppet Show</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Live Entertainment"
+                                value="Circus Juggling Show"><span>Circus Juggling Show</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Live Entertainment"
+                                value="Mimicry & Comedy"><span>Mimicry & Comedy</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Live Entertainment"
+                                value="Male Live Singer"><span>Male Live Singer</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Live Entertainment"
+                                value="Female Live Singer"><span>Female Live Singer</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Live Entertainment"
+                                value="Professional Anchor / Emcee"><span>Professional Anchor / Emcee</span></label>
+                    </div>
+                </div>
+
+                <!-- Special Entries -->
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div class="order-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="order-card-title">Special Entries</div>
+                            <div class="order-card-sub">Unforgettable first impressions</div>
+                        </div>
+                    </div>
+                    <div class="order-items-list">
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Special Entries"
+                                value="Car Entry (Decorated Car or Jeep)"><span>Car Entry (Decorated Car or
+                                Jeep)</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Special Entries"
+                                value="Cold Fire Entry"><span>Cold Fire Entry</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Special Entries"
+                                value="Dry Ice Entry (Fog-on-floor)"><span>Dry Ice Entry (Fog-on-floor)</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Special Entries"
+                                value="Combined Entry with Special Effects"><span>Combined Entry with Special
+                                Effects</span></label>
+                    </div>
+                </div>
+
+                <!-- Activity Counters -->
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div class="order-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <circle cx="13.5" cy="6.5" r=".5" fill="white" />
+                                <circle cx="17.5" cy="10.5" r=".5" fill="white" />
+                                <circle cx="8.5" cy="7.5" r=".5" fill="white" />
+                                <circle cx="6.5" cy="12.5" r=".5" fill="white" />
+                                <path
+                                    d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="order-card-title">Activity Counters</div>
+                            <div class="order-card-sub">Keep guests entertained</div>
+                        </div>
+                    </div>
+                    <div class="order-items-list">
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Activity Counters"
+                                value="Temporary Tattoos"><span>Temporary Tattoos</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Activity Counters"
+                                value="Mehendi (Henna Art)"><span>Mehendi (Henna Art)</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Activity Counters" value="Nail Art"><span>Nail Art</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb"
+                                data-cat="Activity Counters"
+                                value="Face Painting"><span>Face Painting</span></label>
+                    </div>
+                </div>
+
+                <!-- Food Stations -->
+                <div class="order-card">
+                    <div class="order-card-head">
+                        <div class="order-card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <polyline points="20 12 20 22 4 22 4 12" />
+                                <rect x="2" y="7" width="20" height="5" />
+                                <line x1="12" y1="22" x2="12" y2="7" />
+                                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="order-card-title">Food Stations</div>
+                            <div class="order-card-sub">Delightful treats for guests</div>
+                        </div>
+                    </div>
+                    <div class="order-items-list">
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Food Stations"
+                                value="Chocolate Fountain"><span>Chocolate Fountain</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Food Stations"
+                                value="Popcorn Machine"><span>Popcorn Machine</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Food Stations"
+                                value="Sugar Candy Stall"><span>Sugar Candy Stall</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Food Stations"
+                                value="Sweet Corn Counter"><span>Sweet Corn Counter</span></label>
+                        <label class="order-item"><input type="checkbox" class="order-cb" data-cat="Food Stations"
+                                value="Smoke Biscuits Station"><span>Smoke Biscuits Station</span></label>
+                    </div>
+                </div>
+
+            </div><!-- /.order-services-grid -->
+
+            <!-- ── Order Form ── -->
+            <div class="order-form-box">
+                <p class="mono"
+                    style="color: var(--warm-sand); font-size: 0.72rem; letter-spacing: 2.5px; margin-bottom: 10px;">
+                    STEP 2 — YOUR DETAILS</p>
+                <h3
+                    style="color: var(--pearl); font-size: 1.4rem; letter-spacing: -1px; margin-bottom: 8px; font-family: 'Syncopate', sans-serif; text-transform: uppercase;">
+                    Tell Us About Your Event</h3>
+                <p style="color: rgba(242,241,237,0.4); font-size: 0.85rem; margin-bottom: 30px;">Fields marked * are
+                    required.</p>
+
+                <div class="form-row-2" style="margin-bottom: 14px;">
+                    <input type="text" id="o-name" class="order-input" placeholder="Your Name *" required>
+                    <input type="tel" id="o-mobile" class="order-input" placeholder="Mobile Number *" required>
+                </div>
+
+                <input type="text" id="o-event" class="order-input"
+                    placeholder="Event Type  (e.g. Birthday, Wedding, Corporate...)"
+                    style="margin-bottom: 14px;">
+
+                <div class="form-row-2" style="margin-bottom: 14px;">
+                    <input type="date" id="o-date" class="order-input" title="Event Date">
+                    <input type="text" id="o-location" class="order-input" placeholder="Event Location *" required>
+                </div>
+
+                <button type="button" class="wa-send-btn" onclick="sendWhatsAppOrder()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M3.50002 12C3.50002 7.30558 7.3056 3.5 12 3.5C16.6944 3.5 20.5 7.30558 20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C10.3278 20.5 8.77127 20.0182 7.45798 19.1861C7.21357 19.0313 6.91408 18.9899 6.63684 19.0726L3.75769 19.9319L4.84173 17.3953C4.96986 17.0955 4.94379 16.7521 4.77187 16.4751C3.9657 15.176 3.50002 13.6439 3.50002 12ZM12 1.5C6.20103 1.5 1.50002 6.20101 1.50002 12C1.50002 13.8381 1.97316 15.5683 2.80465 17.0727L1.08047 21.107C0.928048 21.4637 0.99561 21.8763 1.25382 22.1657C1.51203 22.4552 1.91432 22.5692 2.28599 22.4582L6.78541 21.1155C8.32245 21.9965 10.1037 22.5 12 22.5C17.799 22.5 22.5 17.799 22.5 12C22.5 6.20101 17.799 1.5 12 1.5ZM14.2925 14.1824L12.9783 15.1081C12.3628 14.7575 11.6823 14.2681 10.9997 13.5855C10.2901 12.8759 9.76402 12.1433 9.37612 11.4713L10.2113 10.7624C10.5697 10.4582 10.6678 9.94533 10.447 9.53028L9.38284 7.53028C9.23954 7.26097 8.98116 7.0718 8.68115 7.01654C8.38113 6.96129 8.07231 7.046 7.84247 7.24659L7.52696 7.52195C6.76823 8.18414 6.3195 9.2723 6.69141 10.3741C7.07698 11.5163 7.89983 13.314 9.58552 14.9997C11.3991 16.8133 13.2413 17.5275 14.3186 17.8049C15.1866 18.0283 16.008 17.7288 16.5868 17.2572L17.1783 16.7752C17.4313 16.5691 17.5678 16.2524 17.544 15.9269C17.5201 15.6014 17.3389 15.308 17.0585 15.1409L15.3802 14.1409C15.0412 13.939 14.6152 13.9552 14.2925 14.1824Z" />
+                    </svg>
+                    Send My Order on WhatsApp
+                </button>
+
+                <p style="text-align:center; color:rgba(242,241,237,0.3); font-size:0.78rem; margin-top:18px;">
+                    Your selections open directly in WhatsApp — no account needed.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <!-- GLOBAL FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="mono"
+                        style="color:var(--warm-sand); font-size:1.2rem; margin-bottom:10px; letter-spacing:2px; font-weight: bold;">
+                        JEW – Jayanthi Event World
+                    </h3>
+                    <p style="margin-bottom: 20px; font-style: italic; color:rgba(242,241,237,0.8);">Creating
+                        unforgettable moments across Telugu States and South India.</p>
+
+                    <p style="margin-bottom: 8px;"><strong>Visakhapatnam, Andhra Pradesh</strong></p>
+
+                    <ul style="margin-top: 15px;">
+                        <li style="text-transform: none; display: flex; align-items: center; gap: 10px;"><span
+                                style="font-size: 1.2rem;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em"
+                                    height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                                </svg></span> <a href="tel:+919704571912"
+                                style="color: inherit; text-decoration: none;">+91 97045 71912</a></li>
+                        <li style="text-transform: none; display: flex; align-items: center; gap: 10px;"><span
+                                style="font-size: 1.2rem;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em"
+                                    height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                                </svg></span> <a href="mailto:bestdjinvizag@gmail.com"
+                                style="color: inherit; text-decoration: none;">bestdjinvizag@gmail.com</a></li>
+                        <li style="text-transform: none; display: flex; align-items: center; gap: 10px;"><span
+                                style="font-size: 1.2rem;"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em"
+                                    height="1.2em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="theme-icon">
+                                    <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
+                                </svg></span> <a href="https://wa.me/919704571912"
+                                style="color: inherit; text-decoration: none;">WhatsApp Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mono">Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html" style="color: inherit; text-decoration: none;">Home</a></li>
+                        <li><a href="services.html" style="color: inherit; text-decoration: none;">Services</a></li>
+                        <li><a href="events.html" style="color: inherit; text-decoration: none;">Events</a></li>
+                        <li><a href="about.html" style="color: inherit; text-decoration: none;">About</a></li>
+                        <li><a href="contact.html" style="color: inherit; text-decoration: none;">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mono" style="color:var(--warm-sand);">JEW Group</h4>
+                    <ul>
+                        <li><a href="https://bestmagicianvizag.com/" target="_blank"
+                                style="color: inherit; text-decoration: none;">Best Magician Vizag</a></li>
+                        <li><a href="https://bestdjinvizag.com/" target="_blank"
+                                style="color: inherit; text-decoration: none;">Best DJ</a></li>
+                        <li><a href="https://jayanthiengineeringworks.com/" target="_blank"
+                                style="color: inherit; text-decoration: none;">Jayanthi Engineering Works</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mono">Social</h4>
+                    <div class="social-icons">
+                        <a href="https://wa.me/919704571912" aria-label="WhatsApp">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="theme-icon-fill">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M3.50002 12C3.50002 7.30558 7.3056 3.5 12 3.5C16.6944 3.5 20.5 7.30558 20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C10.3278 20.5 8.77127 20.0182 7.45798 19.1861C7.21357 19.0313 6.91408 18.9899 6.63684 19.0726L3.75769 19.9319L4.84173 17.3953C4.96986 17.0955 4.94379 16.7521 4.77187 16.4751C3.9657 15.176 3.50002 13.6439 3.50002 12ZM12 1.5C6.20103 1.5 1.50002 6.20101 1.50002 12C1.50002 13.8381 1.97316 15.5683 2.80465 17.0727L1.08047 21.107C0.928048 21.4637 0.99561 21.8763 1.25382 22.1657C1.51203 22.4552 1.91432 22.5692 2.28599 22.4582L6.78541 21.1155C8.32245 21.9965 10.1037 22.5 12 22.5C17.799 22.5 22.5 17.799 22.5 12C22.5 6.20101 17.799 1.5 12 1.5ZM14.2925 14.1824L12.9783 15.1081C12.3628 14.7575 11.6823 14.2681 10.9997 13.5855C10.2901 12.8759 9.76402 12.1433 9.37612 11.4713L10.2113 10.7624C10.5697 10.4582 10.6678 9.94533 10.447 9.53028L9.38284 7.53028C9.23954 7.26097 8.98116 7.0718 8.68115 7.01654C8.38113 6.96129 8.07231 7.046 7.84247 7.24659L7.52696 7.52195C6.76823 8.18414 6.3195 9.2723 6.69141 10.3741C7.07698 11.5163 7.89983 13.314 9.58552 14.9997C11.3991 16.8133 13.2413 17.5275 14.3186 17.8049C15.1866 18.0283 16.008 17.7288 16.5868 17.2572L17.1783 16.7752C17.4313 16.5691 17.5678 16.2524 17.544 15.9269C17.5201 15.6014 17.3389 15.308 17.0585 15.1409L15.3802 14.1409C15.0412 13.939 14.6152 13.9552 14.2925 14.1824Z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/best_magician_vizag/" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="theme-icon-fill">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.youtube.com/@magicvasanthvizag" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor" class="theme-icon-fill">
+                                <path
+                                    d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 00-2.122 2.136C0 8.082 0 12 0 12s0 3.918.501 5.814a3.016 3.016 0 002.122 2.136c1.872.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 002.122-2.136C24 15.918 24 12 24 12s0-3.918-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:40px; border-top:1px solid rgba(248,246,250,0.08); padding-top:30px;">
+                <p
+                    style="font-size:0.75rem; color:rgba(242,241,237,0.5); text-align: center; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                    Looking for the best Event Manager near you, Magician near me, or DJ near me? JEW – Jayanthi Event
+                    World provides professional event management, magic shows, DJ services, sound systems, and lighting
+                    across Visakhapatnam, Andhra Pradesh, Telangana, and South India.
+                </p>
+            </div>
+
+            <div style="margin-top:30px; display:flex; justify-content:center; align-items:center;">
+                <p class="mono" style="font-size:0.6rem; opacity:0.6; color:var(--pearl);">© 2025 JEW – Jayanthi Event
+                    World. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- External Script -->
+    <script src="script.js"></script>
+
+    <script>
+        // ── Catalogue Modal ──────────────────────────────────────
+        const catModal = document.getElementById('catalogue-modal');
+        const openCatBtn = document.getElementById('open-catalogue');
+        const closeCatBtn = document.getElementById('close-catalogue');
+
+        openCatBtn.addEventListener('click', () => {
+            catModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeCatBtn.addEventListener('click', closeCatalogue);
+
+        catModal.addEventListener('click', (e) => {
+            if (e.target === catModal) closeCatalogue();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (catModal.classList.contains('open')) closeCatalogue();
+            }
+        });
+
+        function closeCatalogue() {
+            catModal.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ── Live checkbox counter ────────────────────────────────
+        const badge = document.getElementById('selection-badge');
+
+        document.querySelectorAll('.order-cb').forEach(cb => {
+            cb.addEventListener('change', updateBadge);
+        });
+
+        function updateBadge() {
+            const count = document.querySelectorAll('.order-cb:checked').length;
+            if (count === 0) {
+                badge.classList.remove('visible');
+            } else {
+                badge.textContent = count + (count === 1 ? ' service selected' : ' services selected');
+                badge.classList.add('visible');
+            }
+        }
+
+        // ── WhatsApp Order ───────────────────────────────────────
+        function sendWhatsAppOrder() {
+            const name = document.getElementById('o-name').value.trim();
+            const mobile = document.getElementById('o-mobile').value.trim();
+            const event = document.getElementById('o-event').value.trim();
+            const dateVal = document.getElementById('o-date').value;
+            const location = document.getElementById('o-location').value.trim();
+
+            if (!name || !mobile || !location) {
+                alert('Please fill in your Name, Mobile Number, and Event Location before sending.');
+                return;
+            }
+
+            // Group selected items by category
+            const groups = {};
+            document.querySelectorAll('.order-cb:checked').forEach(cb => {
+                const cat = cb.dataset.cat;
+                if (!groups[cat]) groups[cat] = [];
+                groups[cat].push(cb.value);
+            });
+
+            let msg = 'Hi JEW! 👋 I would like to book the following services:\n\n';
+
+            if (Object.keys(groups).length === 0) {
+                msg += '_(No specific items selected — please discuss all available services)_\n\n';
+            } else {
+                for (const [cat, items] of Object.entries(groups)) {
+                    msg += '*' + cat + ':*\n';
+                    items.forEach(item => { msg += '  ✅ ' + item + '\n'; });
+                    msg += '\n';
+                }
+            }
+
+            msg += '─────────────────────\n';
+            msg += '*My Event Details:*\n';
+            msg += '👤 Name: ' + name + '\n';
+            msg += '📱 Mobile: ' + mobile + '\n';
+            if (event) msg += '🎉 Event: ' + event + '\n';
+            if (dateVal) {
+                const d = new Date(dateVal);
+                msg += '📅 Date: ' + d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) + '\n';
+            }
+            msg += '📍 Location: ' + location + '\n';
+            msg += '─────────────────────\n';
+            msg += 'Looking forward to hearing from you!';
+
+            window.open('https://wa.me/919704571912?text=' + encodeURIComponent(msg), '_blank');
+        }
+    </script>
+
+</body>
+
+</html>
