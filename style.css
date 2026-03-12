@@ -1569,6 +1569,11 @@ footer h4 {
         padding: 36px 28px;
     }
 
+    .service-card .icon {
+        margin: -36px -28px 24px;
+        width: calc(100% + 56px);
+    }
+
     .service-detail-grid {
         display: flex;
         flex-direction: column-reverse;
@@ -1641,6 +1646,7 @@ footer h4 {
 @media (max-width: 480px) {
     .hero-title {
         line-height: 1.05;
+        -webkit-hyphens: none;
         hyphens: none;
         word-break: keep-all;
     }
@@ -2148,5 +2154,10 @@ textarea {
 
     .service-card {
         padding: 28px 18px;
+    }
+
+    .service-card .icon {
+        margin: -28px -18px 24px;
+        width: calc(100% + 36px);
     }
 }
