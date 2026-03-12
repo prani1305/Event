@@ -1810,6 +1810,17 @@ h3 .theme-icon {
     cursor: pointer;
 }
 
+/* ===========================
+   BANNER PARAGRAPH TEXT FIX
+=========================== */
+.banner3d-a-front p,
+.banner3d-b-front p,
+.banner3d-c-front p,
+.banner3d-d-front p {
+    color: var(--pearl) !important;
+    opacity: 0.88;
+}
+
 /* ===== MOBILE FIXES ===== */
 /* Targeted overrides for screens up to 768px wide.
    Addresses: overflow, heading sizes, grid stacking,
