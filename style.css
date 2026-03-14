@@ -104,6 +104,18 @@ nav {
     transition: background 0.3s, box-shadow 0.3s;
 }
 
+.nav-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-logo img {
+    height: 52px;
+    width: auto;
+    display: block;
+}
+
 nav .mono {
     color: var(--obsidian) !important;
     font-weight: 700;
@@ -1656,8 +1668,9 @@ footer h4 {
     h2,
     h3 {
         letter-spacing: 0;
-        overflow-wrap: break-word;
-        word-break: normal;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        max-width: 100%;
     }
 
     .banner3d-a-front,
@@ -1823,8 +1836,8 @@ h3 .theme-icon {
 .banner3d-b-front p,
 .banner3d-c-front p,
 .banner3d-d-front p {
-    color: var(--pearl) !important;
-    opacity: 0.88;
+    color: #f2f1ed !important;
+    opacity: 1;
 }
 
 /* ===== MOBILE FIXES ===== */
